@@ -124,29 +124,60 @@ public class CadastroProdutos extends JFrame {
 		
 		
 		btnCadastrar.addActionListener(e -> {
-			
-			float preco = -1;
-			String nome = textFieldNome.getText();
-			String codigo = textFieldCodigo.getText();
-			preco = Float.parseFloat(textFieldPreco.getText());
-			
-			if (nome.isEmpty()) {
-				JOptionPane.showMessageDialog(null, "Informe o nome do produto", "Erro", JOptionPane.ERROR_MESSAGE);
-				return;
-			}
-			if (codigo.isEmpty()) {
-				JOptionPane.showMessageDialog(null, "Informe o codigo do produto", "Erro", JOptionPane.ERROR_MESSAGE);
-				return;
-			}
-			if (preco == -1) {
-				JOptionPane.showMessageDialog(null, "Informe o preço do produto", "Erro", JOptionPane.ERROR_MESSAGE);
-				return;
-			}
-			
-			Produto.nome = nome;
-			Produto.codigo = codigo;
-			Produto.preco = preco;
+		    String nome = textFieldNome.getText().trim();
+		    String codigo = textFieldCodigo.getText().trim();
+		    String precoStr = textFieldPreco.getText().trim();
+		    float preco;
+
+		    // Validação do nome
+		    if (nome.isEmpty()) {
+		        JOptionPane.showMessageDialog(null, "Informe o nome do produto", "Erro", JOptionPane.ERROR_MESSAGE);
+		        return;
+		    }
+
+		    // Validação do código
+		    if (codigo.isEmpty()) {
+		        JOptionPane.showMessageDialog(null, "Informe o código do produto", "Erro", JOptionPane.ERROR_MESSAGE);
+		        return;
+		    }
+
+		    // Validação do preço
+		    if (precoStr.isEmpty()) {
+		        JOptionPane.showMessageDialog(null, "Informe o preço do produto", "Erro", JOptionPane.ERROR_MESSAGE);
+		        return;
+		    }
+
+		    try {
+		        preco = Float.parseFloat(precoStr);
+		        if (preco < 0) {
+		            JOptionPane.showMessageDialog(null, "O preço não pode ser negativo", "Erro", JOptionPane.ERROR_MESSAGE);
+		            return;
+		        }
+		    } catch (NumberFormatException ex) {
+		        JOptionPane.showMessageDialog(null, "Preço inválido. Digite um número válido.", "Erro", JOptionPane.ERROR_MESSAGE);
+		        return;
+		    }
+
+		    // Atribuição aos atributos do Produto
+		    Produto.nome = nome;
+		    Produto.codigo = codigo;
+		    Produto.preco = preco;
+
+		    // Feedback para o usuário (opcional)
+		    JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso!");
 		});
+
+		btnCadastrar.addActionListener(e -> {
+			String nome = textFieldNome.getText();
+			//Produto codigo = Produto.buscarPorCodigo(codigo);
+			String preco = textFieldPreco.getText();
+			
+			if (nome.trim() == null) {
+				JOptionPane.showMessageDialog(null, "Produto inválido," , "Erro", JOptionPane.ERROR_MESSAGE);
+			}
+			
+		//	if (codigo.trim())
+		}); 
 		
 		btnBuscar.addActionListener(e -> {
 			String nomeProduto = textFieldNome.getText();

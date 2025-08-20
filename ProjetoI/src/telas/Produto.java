@@ -45,4 +45,22 @@ public class Produto {
 		return null;
 	}
 	
+	public static Produto buscarPorCodigo (String codigo) {
+		for (Produto p : produtos) {
+			if (p.getCodigo().equalsIgnoreCase(codigo.trim())) {
+				return p;
+			}
+		}
+		return null;
+	}
+	
+	public static void adicionar (Produto produto) {
+		produtos.add(produto);
+	}
+	
+	public static void remover (Produto produto) {
+		 produtos.removeIf(p -> p.getNome().equalsIgnoreCase(nome));
+	}
+
+	
 }
